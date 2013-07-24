@@ -177,7 +177,7 @@ class HubSpot_BaseClient {
             if($this->check_auth()>=400){
                 try {
                     $refreshed_token = $this->refresh_access_token($this->REFRESH_TOKEN,$this->CLIENT_ID);
-                    $this->ACCESS_TOKEN = $refreshed_token['access_token'];
+                    $this->ACCESS_TOKEN = $refreshed_token->access_token;
                     return $this->get_domain() . $this->PATH_DIV .
                     $this->get_api() . $this->PATH_DIV .
                     $this->get_api_version() . $this->PATH_DIV .
