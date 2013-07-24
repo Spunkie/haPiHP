@@ -66,21 +66,24 @@ class HubSpot_BaseClient {
     /**
     * Constructor.
     *
-    *@param HAPIKey: String value of HubSpot API Key for requests
-    *       access_token: String value of Hubspot OAuth Token               
-    *       refresh_token: String value of refresh token given initially for OAuth
-    *       client_id: Unique ID for your registered app
+    *@param auth: array with the following optional parameters. Either an API key or and OAuth token must be used for authentication.
+    *           HAPIKey: String value of HubSpot API Key for requests
+    *           access_token: String value of Hubspot OAuth Token               
+    *           refresh_token: String value of refresh token given initially for OAuth
+    *           client_id: Unique ID for your registered app
     *
     **/
-    public function __construct($HAPIKey=null, $access_token=null, $refresh_token=null,$client_id=null,$userAgent="haPiHP default UserAgent") {    // new
+    public function __construct($auth,$userAgent="haPiHP default UserAgent") {    // new
 
-        if($HAPIKey AND $access_token){
+        if(isset($auth['HAPIKey']) AND isset($auth['access_token'])){
             throw new Exception("Cannot use hapikey and OAuth token", 1);
         }
         else{
-            $this->HAPIKey = $HAPIKey;
-            print_r("HAPIKey:".$this->HAPIKey);
-            $this->ACCESS_TOKEN = $access_token;
+            $auth += array('HAPIKey'=>null,'access_token'=>null,'refresh_token'=>null,'client_id'=>null);
+            $this->HAPIKey = $auth['HAPIKey'];
+            $this->ACCESS_TOKEN = $auth['access_token'];
+            $this->REFRESH_TOKEN = $auth['refresh_token'];
+            $this->CLIENT_ID = $auth['client_id'];
             print_r("token:".$this->ACCESS_TOKEN);
         }
         $this->userAgent = $userAgent;    // new
@@ -212,16 +215,8 @@ class HubSpot_BaseClient {
     **/
     protected function get_forms_request_url($url_base,$params) {
         $paramstring = $this->array_to_params($params);
-        if($this->ACCESS_TOKEN){
-            return $url_base .
-            $this->TOKEN_PARAM . $this->ACCESS_TOKEN .
-            $paramstring;
-        }
-        else{
-            return $url_base .
-            $this->KEY_PARAM . $this->HAPIKey .
-            $paramstring;
-        }
+        return $url_base .
+               $paramstring;
     }
 
     /**
