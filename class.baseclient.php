@@ -2,14 +2,14 @@
 /**
 * Copyright 2011 HubSpot, Inc.
 *
-*   Licensed under the Apache License, Version 2.0 (the
+* Licensed under the Apache License, Version 2.0 (the
 * "License"); you may not use this file except in compliance
 * with the License.
-*   You may obtain a copy of the License at
+* You may obtain a copy of the License at
 *
-*       http://www.apache.org/licenses/LICENSE-2.0
+* http://www.apache.org/licenses/LICENSE-2.0
 *
-*   Unless required by applicable law or agreed to in writing,
+* Unless required by applicable law or agreed to in writing,
 * software distributed under the License is distributed on an
 * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 * either express or implied.  See the License for the specific
@@ -85,7 +85,7 @@ class HubSpot_BaseClient {
             $this->REFRESH_TOKEN = $auth['refresh_token'];
             $this->CLIENT_ID = $auth['client_id'];
         }
-        $this->userAgent = $userAgent;    // new
+        $this->userAgent = $userAgent;
     }
 
     /**
@@ -99,46 +99,47 @@ class HubSpot_BaseClient {
     }
 
     /**
-    * Returns API_PATH that is set in specific hapi clients.  All
-    * clients that extend HubSpot_BaseClient should set $API_PATH to the
-    * base path for the API (e.g.: the leads api sets the value to
-    * 'leads')
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function get_api() {
-        if ($this->isBlank($this->API_PATH)) {
+     * Returns API_PATH that is set in specific hapi clients.  All
+     * clients that extend HubSpot_BaseClient should set $API_PATH to the
+     * base path for the API (e.g.: the leads api sets the value to
+     * 'leads')
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function get_api()
+    {
+        if ( $this->isBlank($this->API_PATH) )
             throw new HubSpot_Exception('API_PATH must be defined');
-        } else {
+        else
             return $this->API_PATH;
-        }
     }
 
     /**
-    * Returns API_VERSION that is set in specific hapi clients. All
-    * clients that extend HubSpot_BaseClient should set $API_VERSION to the
-    * version that the client is developed for (e.g.: the leads v1
-    * client sets the value to 'v1')
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function get_api_version() {
-        if ($this->isBlank($this->API_VERSION)) {
+     * Returns API_VERSION that is set in specific hapi clients. All
+     * clients that extend HubSpot_BaseClient should set $API_VERSION to the
+     * version that the client is developed for (e.g.: the leads v1
+     * client sets the value to 'v1')
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function get_api_version()
+    {
+        if ( $this->isBlank($this->API_VERSION) )
             throw new HubSpot_Exception('API_VERSION must be defined');
-        } else {
+        else
             return $this->API_VERSION;
-        }
     }
 
     /**
-    * Allows developer to set testing flag to true in order to
-    * execute api requests against hubapiqa.com
-    *
-    * @param $testing: Boolean
-    **/
+     * Allows developer to set testing flag to true in order to
+     * execute api requests against hubapiqa.com
+     *
+     * @param $testing: Boolean
+     */
     public function set_is_test($testing) {
-        if ($testing==true) {
-            $this->isTest = true;
+        if ( $testing == TRUE )
+        {
+            $this->isTest = TRUE;
         }
     }
 
@@ -201,29 +202,31 @@ class HubSpot_BaseClient {
     }
 
     /**
-    * Creates the url to be used for the api request for Forms API
-    *
-    * @param endpoint: String value for the endpoint to be used (appears after version in url)
-    * @param params: Array containing query parameters and values
-    *
-    * @returns String
-    **/
-    protected function get_forms_request_url($url_base,$params) {
+     * Creates the url to be used for the api request for Forms API
+     *
+     * @param endpoint: String value for the endpoint to be used (appears after version in url)
+     * @param params: Array containing query parameters and values
+     *
+     * @return String
+     */
+    protected function get_forms_request_url($url_base,$params)
+    {
         $paramstring = $this->array_to_params($params);
         return $url_base .
                $paramstring;
     }
 
     /**
-    * Executes HTTP GET request
-    *
-    * @param URL: String value for the URL to GET
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_get_request($url) {
+     * Executes HTTP GET request
+     *
+     * @param URL: String value for the URL to GET
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_get_request($url)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -238,21 +241,20 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $error);
         } else {
             return $output;
-        }
     }
 
     /**
-    * Executes HTTP POST request
-    *
-    * @param URL: String value for the URL to POST to
-    * @param fields: Array containing names and values for fields to post
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_post_request($url, $body, $formenc=FALSE) {    //new
-
+     * Executes HTTP POST request
+     *
+     * @param URL: String value for the URL to POST to
+     * @param fields: Array containing names and values for fields to post
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_post_request($url, $body, $formenc = FALSE)
+    {
         // intialize cURL and send POST data
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, true);
@@ -272,7 +274,6 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
-        }
     } 
 
 
@@ -304,29 +305,27 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
-        }
     }
 
     /**
-    * Executes HTTP POST request with XML as the POST body
-    *
-    * @param URL: String value for the URL to POST to
-    * @param fields: Array containing names and values for fields to post
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_xml_post_request($url, $body) {
-
+     * Executes HTTP POST request with XML as the POST body
+     *
+     * @param URL String value for the URL to POST to
+     * @param fields Array containing names and values for fields to post
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_xml_post_request($url, $body)
+    {
         // intialize cURL and send POST data
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);    // new
-        //curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/atom+xml'));
         $output = curl_exec($ch);
         $errno = curl_errno($ch);
@@ -337,25 +336,24 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
-        }
     }
 
     /**
-    * Executes HTTP PUT request
-    *
-    * @param URL: String value for the URL to PUT to
-    * @param body: String value of the body of the PUT request
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_put_request($url, $body) {
+     * Executes HTTP PUT request
+     *
+     * @param URL String value for the URL to PUT to
+     * @param body String value of the body of the PUT request
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_put_request($url, $body)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);    // new
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($body)));
-        //curl_setopt($ch, CURLOPT_VERBOSE, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS,$body);
@@ -369,25 +367,24 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
-        }
     }
 
     /**
-    * Executes HTTP PUT request with XML as the PUT body
-    *
-    * @param URL: String value for the URL to PUT to
-    * @param body: String value of the body of the PUT request
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_xml_put_request($url, $body) {
+     * Executes HTTP PUT request with XML as the PUT body
+     *
+     * @param URL String value for the URL to PUT to
+     * @param body String value of the body of the PUT request
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_xml_put_request($url, $body)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);    // new
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/atom+xml','Content-Length: ' . strlen($body)));
-        //curl_setopt($ch, CURLOPT_VERBOSE, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS,$body);
@@ -401,25 +398,24 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
-        }
     }
 
     /**
-    * Executes HTTP DELETE request
-    *
-    * @param URL: String value for the URL to DELETE to
-    * @param body: String value of the body of the DELETE request
-    *
-    * @returns: Body of request result
-    *
-    * @throws HubSpot_Exception
-    **/
-    protected function execute_delete_request($url, $body) {
+     * Executes HTTP DELETE request
+     *
+     * @param URL String value for the URL to DELETE to
+     * @param body String value of the body of the DELETE request
+     *
+     * @return Body of request result
+     *
+     * @throws HubSpot_Exception
+     */
+    protected function execute_delete_request($url, $body)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);    // new
+        curl_setopt($ch, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json','Content-Length: ' . strlen($body)));
-        //curl_setopt($ch, CURLOPT_VERBOSE, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($ch, CURLOPT_POSTFIELDS,$body);
@@ -433,18 +429,17 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
-        }
     }
 
     /**
-    * Converts an array into url friendly list of parameters
-    *
-    * @param params: Array of parameters (name=>value)
-    *
-    * @returns String of url friendly parameters (&name=value&foo=bar)
-    *
-    **/
-    protected function array_to_params($params) {
+     * Converts an array into url friendly list of parameters
+     *
+     * @param array params Multidimensional array of parameters (name=>value)
+     *
+     * @return String of url friendly parameters (&name=value&foo=bar)
+     */
+    protected function array_to_params($params)
+    {
         $paramstring = '';
         if ($params != null) {
             foreach ($params as $parameter => $value) {
@@ -455,18 +450,18 @@ class HubSpot_BaseClient {
    }
 
     /**
-    * Utility function used to determine if variable is empty
-    *
-    * @param s: Variable to be evaluated
-    *
-    * @returns Boolean
-    **/
-    protected function isBlank ($s) {
-        if ((trim($s)=='')||($s==null)) {
+     * Utility function used to determine if variable is empty
+     *
+     * @param s Variable to be evaluated
+     *
+     * @returns Boolean
+     */
+    protected function isBlank ($s)
+    {
+        if ( (trim($s)=='') OR ($s == NULL) )
             return true;
-        } else {
+        else
             return false;
-        }
     }
 
     /**
@@ -478,7 +473,6 @@ class HubSpot_BaseClient {
         $info = curl_getinfo($ch);
         $this->lastStatus = (isset($info['http_code'])) ? $info['http_code'] : null;
     }
-
     /**
     * Quick check of access_token
     *
