@@ -241,6 +241,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $error);
         } else {
             return $output;
+        }
     }
 
     /**
@@ -274,6 +275,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
+        }
     } 
 
 
@@ -305,6 +307,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
+        }
     }
 
     /**
@@ -336,6 +339,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception ('cURL error: ' . $error);
         } else {
             return $output;
+        }
     }
 
     /**
@@ -367,6 +371,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
+        }
     }
 
     /**
@@ -398,6 +403,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
+        }
     }
 
     /**
@@ -429,6 +435,7 @@ class HubSpot_BaseClient {
             throw new HubSpot_Exception('cURL error: ' . $errmsg);
         } else {
             return $result;
+        }
     }
 
     /**
